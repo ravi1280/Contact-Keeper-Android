@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <size android:width="128dp" android:height="128dp"/>
+    <corners android:radius="64dp"/>
+<!--    <solid android:color="@color/b2"/>-->
+    <gradient
+        android:startColor="@color/g1"
+        android:endColor="@color/g2"
+        android:angle="90"
+        android:centerX="@integer/material_motion_duration_medium_2"
+        />
+
+</shape>
