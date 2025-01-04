@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,15 +42,42 @@ public class ViewActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Find the ImageView by its ID
+        ImageView myImageView = findViewById(R.id.addView);
+
+        // Set an OnClickListener
+        myImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Perform your desired action here
+//                Toast.makeText(ViewActivity.this, "Image clicked!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadContact();
+    }
+    private void loadContact() {
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.app13.contactList", Context.MODE_PRIVATE);
         String contactJson = sharedPreferences.getString("contactsJson",null);
 
         if(contactJson==null){
-            Toast.makeText(this,"Contact List Not Founded",Toast.LENGTH_LONG).show();
+//            Toast.makeText(this,"Contact List Not Founded",Toast.LENGTH_LONG).show();
+            Intent i = new Intent(ViewActivity.this,MainActivity.class);
+            startActivity(i);
+
         }else {
-           Gson gson= new Gson();
+            Gson gson= new Gson();
             Type type = new TypeToken<ArrayList<Contact>>(){}.getType();
-           ArrayList<Contact> contactArrayList = gson.fromJson(contactJson,type);
+            ArrayList<Contact> contactArrayList = gson.fromJson(contactJson,type);
 
             RecyclerView recyclerView = findViewById(R.id.recycleView01);
 
@@ -58,9 +86,11 @@ public class ViewActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(linearLayoutManager);
 
             recyclerView.setAdapter(new contactAdapter(contactArrayList));
+
         }
     }
 }
+
 
 class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactViewHolder>{
 
