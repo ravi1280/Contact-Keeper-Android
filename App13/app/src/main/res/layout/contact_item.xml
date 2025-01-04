@@ -31,24 +31,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView02"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/callButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/b1"
-        android:text="Make a call"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
-
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -69,5 +57,25 @@
             android:textSize="35sp" />
 
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imageSms"
+        android:layout_width="50dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toStartOf="@+id/imageCall"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout"
+        app:srcCompat="@drawable/sms_organizer_svgrepo_com" />
+
+    <ImageView
+        android:id="@+id/imageCall"
+        android:layout_width="50dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout"
+        app:srcCompat="@drawable/call22_phone_ui_2_svgrepo_com" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

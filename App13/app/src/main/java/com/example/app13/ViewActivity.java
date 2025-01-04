@@ -100,6 +100,8 @@ class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactViewHold
         TextView textViewName;
         TextView textViewMobileCity;
         Button call;
+        ImageView callImage;
+        ImageView smsImage;
 
         public contactViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -107,7 +109,8 @@ class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactViewHold
             textViewLetter = itemView.findViewById(R.id.textView01);
             textViewName = itemView.findViewById(R.id.textView02);
             textViewMobileCity = itemView.findViewById(R.id.textView03);
-            call = itemView.findViewById(R.id.callButton);
+            callImage = itemView.findViewById(R.id.imageCall);
+            smsImage = itemView.findViewById(R.id.imageSms);
         }
     }
 
@@ -134,12 +137,25 @@ class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactViewHold
         holder.textViewName.setText(contact.getFirstName()+" "+contact.getLastName());
         holder.textViewMobileCity.setText(contact.getMobile()+" ("+contact.getCity()+") ");
 
-        holder.call.setOnClickListener(new View.OnClickListener() {
+        holder.callImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_DIAL);
                 i.setData(Uri.parse("tel:"+contact.getMobile()));
                 view.getContext().startActivity(i);
+
+            }
+        });
+        holder.smsImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("smsto:" + contact.getMobile())); // Replace contact.getMobile() with the desired phone number
+                intent.putExtra("sms_body", "Hello! Start Your Conversation."); // Optional: Pre-fill the SMS body
+
+
+                    view.getContext().startActivity(intent);
+
 
             }
         });
