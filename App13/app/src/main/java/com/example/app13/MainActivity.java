@@ -48,37 +48,50 @@ public class MainActivity extends AppCompatActivity {
                EditText firstName  = findViewById(R.id.editTextText02);
                EditText lastName = findViewById(R.id.editTextText03);
                EditText city = findViewById(R.id.editTextText04);
+               if(mobile.getText().toString().isEmpty()){
+                   Toast.makeText(MainActivity.this,"Please Fill Mobile Number",Toast.LENGTH_LONG).show();
 
-              Contact contact = new Contact(
-                      mobile.getText().toString(),
-                      firstName.getText().toString(),
-                      lastName.getText().toString(),
-                      city.getText().toString()
-              );
+               } else if (firstName.getText().toString().isEmpty()) {
+                   Toast.makeText(MainActivity.this,"Please Fill First Name",Toast.LENGTH_LONG).show();
 
-               Gson gson = new Gson();
+               } else if ( lastName.getText().toString().isEmpty()) {
+                   Toast.makeText(MainActivity.this,"Please Fill Last Name",Toast.LENGTH_LONG).show();
 
-               SharedPreferences sharedPreferences = getSharedPreferences("com.example.app13.contactList", Context.MODE_PRIVATE);
-               String contactJson = sharedPreferences.getString("contactsJson",null);
-               ArrayList<Contact> contactArrayList;
+               } else if (city.getText().toString().isEmpty()) {
+                   Toast.makeText(MainActivity.this,"Please Fill City",Toast.LENGTH_LONG).show();
 
-               if(contactJson==null){
-                    contactArrayList = new ArrayList<>();
                }else {
-                   Type type = new TypeToken<ArrayList<Contact>>() {}.getType();
-                   contactArrayList = gson.fromJson(contactJson, type);
+                   Contact contact = new Contact(
+                           mobile.getText().toString(),
+                           firstName.getText().toString(),
+                           lastName.getText().toString(),
+                           city.getText().toString()
+                   );
+
+                   Gson gson = new Gson();
+
+                   SharedPreferences sharedPreferences = getSharedPreferences("com.example.app13.contactList", Context.MODE_PRIVATE);
+                   String contactJson = sharedPreferences.getString("contactsJson",null);
+                   ArrayList<Contact> contactArrayList;
+
+                   if(contactJson==null){
+                       contactArrayList = new ArrayList<>();
+                   }else {
+                       Type type = new TypeToken<ArrayList<Contact>>() {}.getType();
+                       contactArrayList = gson.fromJson(contactJson, type);
+                   }
+
+                   contactArrayList.add(contact);
+                   sharedPreferences.edit().putString("contactsJson",gson.toJson(contactArrayList)).apply();
+
+                   mobile.setText("");
+                   firstName.setText("");
+                   lastName.setText("");
+                   city.setText("");
+
+                   mobile.requestFocus();
+                   Toast.makeText(MainActivity.this,"New Contact Saved !",Toast.LENGTH_LONG).show();
                }
-
-               contactArrayList.add(contact);
-               sharedPreferences.edit().putString("contactsJson",gson.toJson(contactArrayList)).apply();
-
-               mobile.setText("");
-               firstName.setText("");
-               lastName.setText("");
-               city.setText("");
-
-               mobile.requestFocus();
-               Toast.makeText(MainActivity.this,"New Contact Saved !",Toast.LENGTH_LONG).show();
 
            }
        });
